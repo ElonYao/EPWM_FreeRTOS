@@ -26,13 +26,50 @@ __interrupt void INT_UART_RX_ISR(void)
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
+static void dataParse(rcvd_t *data)
+{
+    uint16_t index=0;
+    uint16_t tokenIndex=0;
+    data->tokens[tokenIndex]=&data->dataBuffer[index];
+    while(data->dataBuffer[index]!=0x20)
+    {
+        index++;
+    }
+    data->dataBuffer[index]='\0';
+    data->tokens[tokenIndex++]=(uint32_t *)&data->dataBuffer[index+1];//????????
+    data->command=*((uint32_t*)(data->tokens[0]));
+    data->parameter=atof( data->tokens[1]);
 
-static void vSCIDataParseTask(void *pvPara)
+}
+static void commDispatch(rcvd_t *data)
+{
+
+
+
+}
+static void vDataProcessTask(void *pvPara)
 {
     uint16_t rData=0;
     for(;;)
     {
-        //pending
+        if(xQueueReceive(xQueueSCI, &rData, portMAX_DELAY)==pdTRUE)
+        {
+            //add the data into databuf
+            if(rData!='\r')
+            {
+                rcvdData.dataBuffer[rcvdData.bufIndex++]=rData;
+            }
+            else
+            {
+                rData='\0';
+                rcvdData.dataBuffer[rcvdData.bufIndex++]=rData;
+                dataParse(&rcvdData);
+                commDispatch(&rcvdData);
+                rcvdData.bufIndex=0;
+            }
+
+        }
+
     }
 
 
@@ -40,8 +77,8 @@ static void vSCIDataParseTask(void *pvPara)
 
 void SCITaskInit(void)
 {
-
-    xTaskCreate(vSCIDataParseTask,"dataProcessSCI",256,NULL,2,&sciTaskHandle);
+    xQueueSCI=xQueueCreate(10,sizeof(uint16_t));
+    xTaskCreate(vDataProcessTask,"dataProcessSCI",256,NULL,2,&sciTaskHandle);
 
 
 }
