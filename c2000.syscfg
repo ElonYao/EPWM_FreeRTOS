@@ -19,9 +19,7 @@ const FREERTOS1 = FREERTOS.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-epwm1.epwmTimebase_hsClockDiv                                    = "EPWM_HSCLOCK_DIVIDER_1";
 epwm1.epwmTimebase_counterMode                                   = "EPWM_COUNTER_MODE_UP_DOWN";
-epwm1.epwmTimebase_period                                        = 6000;
 epwm1.epwmTimebase_periodLoadMode                                = "EPWM_PERIOD_DIRECT_LOAD";
 epwm1.epwmTimebase_counterModeAfterSync                          = "EPWM_COUNT_MODE_UP_AFTER_SYNC";
 epwm1.epwmTimebase_syncInPulseSource                             = "EPWM_SYNC_IN_PULSE_SRC_DISABLE";
@@ -38,13 +36,18 @@ epwm1.$name                                                      = "PWM1";
 epwm1.$hardware                                                  = system.deviceData.board.components.BP_SITE_1.subComponents.PWM_LOC1;
 epwm1.epwmDeadband_enableRED                                     = true;
 epwm1.epwmDeadband_polarityFED                                   = "EPWM_DB_POLARITY_ACTIVE_LOW";
+epwm1.epwmTimebase_hsClockDiv                                    = "EPWM_HSCLOCK_DIVIDER_12";
+epwm1.epwmTimebase_clockDiv                                      = "EPWM_CLOCK_DIVIDER_8";
+epwm1.epwmTimebase_period                                        = 12500;
 
-sci1.$name                 = "UART";
-sci1.$hardware             = system.deviceData.board.components.XDS_UART.subComponents.XDS_SCI_INST2;
-sci1.enabledFIFOInterrupts = ["SCI_INT_RXFF"];
-sci1.rxFifo                = "SCI_FIFO_RX2";
-sci1.rxQual.$name          = "myGPIOQUAL0";
-sci1.txQual.$name          = "myGPIOQUAL1";
+sci1.$name                      = "UART";
+sci1.$hardware                  = system.deviceData.board.components.XDS_UART.subComponents.XDS_SCI_INST2;
+sci1.enabledFIFOInterrupts      = ["SCI_INT_RXFF"];
+sci1.rxFifo                     = "SCI_FIFO_RX2";
+sci1.selectRegisteredInterrupts = ["registerRxInt"];
+sci1.rxQual.$name               = "myGPIOQUAL0";
+sci1.txQual.$name               = "myGPIOQUAL1";
+sci1.sciRXInt.enableInterrupt   = true;
 
 FREERTOS1.$name                         = "RTOS0";
 FREERTOS1.START_SCHEDULER               = false;

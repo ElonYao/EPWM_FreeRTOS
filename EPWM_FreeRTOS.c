@@ -53,6 +53,9 @@
 #include "c2000ware_libraries.h"
 #include "c2000_freertos.h"
 #include "FreeRTOS.h"
+#include "comm.h"
+
+uint16_t SCIBuff[10];
 //
 // Main
 //
