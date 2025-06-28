@@ -55,7 +55,7 @@
 #include "FreeRTOS.h"
 #include "comm.h"
 
-uint16_t SCIBuff[10];
+
 //
 // Main
 //
@@ -98,7 +98,9 @@ void main(void)
     //
     EINT;
     ERTM;
-    EPWM_setCounterCompareValue(PWM1_BASE, EPWM_COUNTER_COMPARE_A, 3000U);
+
+    SCITaskInit();
+    vTaskStartScheduler();
 
     while(1)
     {

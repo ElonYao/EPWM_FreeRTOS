@@ -10,11 +10,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 typedef struct {
-    uint16_t dataBuffer[10];
-    uint16_t bufIndex;
-    uint32_t command;
+    uint16_t dataBuffer[15];
+    //uint16_t bufIndex;
+    uint16_t command;
     float32_t parameter;
-    uint16_t tokens[2];
+    uint32_t tokens[2];
 }rcvd_t;
 //create task
 void SCITaskInit(void);
