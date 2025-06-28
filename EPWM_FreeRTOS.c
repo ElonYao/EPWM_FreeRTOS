@@ -53,6 +53,9 @@
 #include "c2000ware_libraries.h"
 #include "c2000_freertos.h"
 #include "FreeRTOS.h"
+#include "comm.h"
+
+
 //
 // Main
 //
@@ -95,7 +98,9 @@ void main(void)
     //
     EINT;
     ERTM;
-    EPWM_setCounterCompareValue(PWM1_BASE, EPWM_COUNTER_COMPARE_A, 3000U);
+
+    SCITaskInit();
+    vTaskStartScheduler();
 
     while(1)
     {

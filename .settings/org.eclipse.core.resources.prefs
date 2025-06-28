@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//CPU1_LAUNCHXL_RAM/communication/subdir_rules.mk=UTF-8
+encoding//CPU1_LAUNCHXL_RAM/communication/subdir_vars.mk=UTF-8
 encoding//CPU1_LAUNCHXL_RAM/device/subdir_rules.mk=UTF-8
 encoding//CPU1_LAUNCHXL_RAM/device/subdir_vars.mk=UTF-8
 encoding//CPU1_LAUNCHXL_RAM/makefile=UTF-8
