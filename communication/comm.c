@@ -41,9 +41,7 @@ static void  dataParse(rcvd_t *data)
     data->tokens[tokenIndex++]=&(data->dataBuffer[index+1]);
     data->command=(*(uint32_t*)data->tokens[0]);
     data->parameter=atof( data->tokens[1]);
-    //reset buffer and index for next data incoming
-    //memset(data->dataBuffer,0,15);
-    //data->bufIndex=0;
+
 
 }
 static void commDispatch(rcvd_t *data)
