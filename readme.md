@@ -1,0 +1,1 @@
+This is a project use serial command to control servo motor in a freeRTOS environment
